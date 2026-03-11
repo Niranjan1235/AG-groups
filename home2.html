@@ -37,54 +37,114 @@ h1,h2,h3{
 
 /* NAVBAR */
 
+/* NAVBAR */
+
 .navbar{
-    position:fixed;
-    top:0;
-    width:100%;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:20px 8%;
-    transition:0.4s;
-    z-index:1000;
+position:fixed;
+top:0;
+width:100%;
+padding:18px 8%;
+z-index:1000;
+transition:0.3s ease;
 }
+
+/* DARK NAVBAR ON SCROLL */
 
 .navbar.scrolled{
-    background:#0b1c2d;
-    padding:15px 8%;
+background:#0b1c2d;
+box-shadow:0 6px 20px rgba(0,0,0,0.25);
 }
+
+/* NAV CONTAINER */
+
+.nav-container{
+display:flex;
+align-items:center;
+justify-content:space-between;
+max-width:1200px;
+margin:auto;
+}
+
+/* LOGO */
 
 .logo{
-    color:#fff;
-    font-size:24px;
-    font-weight:600;
+color:#fff;
+font-size:24px;
+font-weight:600;
+letter-spacing:1px;
 }
 
+/* NAV LINKS */
+
 .nav-links{
-    list-style:none;
-    display:flex;
-    gap:30px;
+display:flex;
+gap:30px;
+list-style:none;
 }
 
 .nav-links a{
-    text-decoration:none;
-    color:#fff;
-    font-weight:500;
-    transition:0.3s;
+text-decoration:none;
+color:#fff;
+font-size:15px;
+font-weight:500;
+transition:0.3s;
+position:relative;
 }
 
-.nav-links a:hover{
-    color:#d4af37;
+/* HOVER UNDERLINE */
+
+.nav-links a::after{
+content:'';
+position:absolute;
+left:0;
+bottom:-5px;
+width:0%;
+height:2px;
+background:#d4af37;
+transition:0.3s;
 }
 
-.cta-btn{
-    padding:10px 20px;
-    background:#d4af37;
-    color:#fff;
-    border:none;
-    cursor:pointer;
-    border-radius:4px;
-    font-weight:500;
+.nav-links a:hover::after{
+width:100%;
+}
+
+/* MENU TOGGLE */
+
+.menu-toggle{
+display:none;
+font-size:22px;
+color:#fff;
+cursor:pointer;
+}
+
+/* MOBILE MENU */
+
+@media(max-width:768px){
+
+.menu-toggle{
+display:block;
+}
+
+/* MOBILE NAV LINKS */
+
+.nav-links{
+position:absolute;
+top:70px;
+right:-250px;
+background:#0b1c2d;
+width:220px;
+flex-direction:column;
+padding:25px;
+gap:18px;
+transition:0.3s;
+}
+
+/* WHEN MENU ACTIVE */
+
+.nav-links.active{
+right:0;
+}
+
 }
 
 /* HERO */
@@ -572,37 +632,41 @@ font-size:20px;
 
 /* RESPONSIVE */
 
-@media(max-width:768px){
-    .nav-links{
-        display:none;
-    }
 
-    .hero h1{
-        font-size:32px;
-    }
-
-    .founders, .service-cards{
-        flex-direction:column;
-        align-items:center;
-    }
-}
 
 </style>
 </head>
 <body>
 
+
 <!-- NAVBAR -->
 <nav class="navbar" id="navbar">
-    <div class="logo">AYODHYA GROUP</div>
-    <ul class="nav-links">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">About Us</a></li>
-        <li><a href="#">Interiors</a></li>
-        <li><a href="#">Projects</a></li>
-        <li><a href="#">Construction</a></li>
-        <li><a href="#">Careers</a></li>
-    </ul>
-    <button class="cta-btn">Enquire</button>
+
+<div class="nav-container">
+
+<div class="logo">
+AYODHYA GROUPS
+</div>
+
+<ul class="nav-links" id="navLinks">
+
+<li><a href="#">Home</a></li>
+<li><a href="#">About</a></li>
+<li><a href="#">Projects</a></li>
+<li><a href="#">Interiors</a></li>
+<li><a href="#">Construction</a></li>
+<li><a href="#">Contact</a></li>
+
+</ul>
+
+<!-- Mobile Menu Icon -->
+
+<div class="menu-toggle" onclick="toggleMenu()">
+<i class="fas fa-bars"></i>
+</div>
+
+</div>
+
 </nav>
 
 <!-- HERO -->
@@ -621,14 +685,14 @@ font-size:20px;
     <div class="founders">
         <div class="founder-card">
             <img src="https://randomuser.me/api/portraits/men/32.jpg">
-            <h3>Sam</h3>
+            <h3>Suresh</h3>
             <p>6+ Years Experience in Real Estate</p>
             <p>Visionary leader focused on delivering quality construction and complete client satisfaction.</p>
         </div>
 
         <div class="founder-card">
             <img src="https://randomuser.me/api/portraits/men/44.jpg">
-            <h3>Ram</h3>
+            <h3>Rajshekar</h3>
             <p>6+ Years Experience in Real Estate</p>
             <p>Expert in project execution and premium interior solutions with attention to detail.</p>
         </div>
@@ -797,10 +861,10 @@ Through a combination of online and offline marketing methods, we ensure maximum
 
 <div class="footer-col">
 
-<h2 class="footer-logo">AYODHYA GROUPS</h2>
+<h2 class="footer-logo">AYODHA GROUPS</h2>
 
 <p>
-Ayodhya Groups specializes in premium construction, luxury interior design, and real estate development. 
+Ayodha Groups specializes in premium construction, luxury interior design, and real estate development. 
 We focus on delivering high-quality homes and spaces that combine functionality, durability, and modern design.
 </p>
 
@@ -826,7 +890,7 @@ We focus on delivering high-quality homes and spaces that combine functionality,
 
 <li><a href="#">Home</a></li>
 <li><a href="#">About Us</a></li>
-<li><a href="#">Interiors</a></li>
+<li><a href="interiors2.html">Interiors</a></li>
 <li><a href="#">Projects</a></li>
 <li><a href="#">Construction</a></li>
 <li><a href="#">Careers</a></li>
@@ -903,6 +967,24 @@ We focus on delivering high-quality homes and spaces that combine functionality,
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <script>
+
+function toggleMenu(){
+document.getElementById("navLinks").classList.toggle("active");
+}
+
+window.addEventListener("scroll",function(){
+
+let navbar=document.getElementById("navbar")
+
+if(window.scrollY>50){
+navbar.classList.add("scrolled")
+}
+else{
+navbar.classList.remove("scrolled")
+}
+
+})
+
 window.addEventListener("scroll", function(){
     document.getElementById("navbar").classList.toggle("scrolled", window.scrollY > 50);
 });
@@ -945,4 +1027,3 @@ setInterval(autoSlide,4000)
 
 </body>
 </html>
-
