@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"/>
+<title>Construction – Aurenza Group</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="shared.css"/>
+<style>
+/* CAPS */
+.con-caps{padding:90px 5%;background:var(--dark-2)}
+.caps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:8px}
+.cap-card{padding:36px 28px;border:1px solid rgba(255,255,255,.07);position:relative;overflow:hidden;transition:border-color .3s,transform .4s cubic-bezier(.16,1,.3,1)}
+.cap-card:hover{border-color:rgba(200,151,42,.35);transform:translateY(-5px)}
+.cap-card::after{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--gold);transform:scaleY(0);transform-origin:bottom;transition:transform .4s}
+.cap-card:hover::after{transform:scaleY(1)}
+.cap-num{font-family:'Cormorant Garamond',serif;font-size:4rem;font-weight:300;color:rgba(200,151,42,.18);position:absolute;top:10px;right:16px;line-height:1}
+.cap-icon{width:44px;height:44px;margin-bottom:20px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(200,151,42,.25);background:rgba(200,151,42,.07)}
+.cap-title{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:500;color:var(--white);margin-bottom:10px}
+.cap-desc{font-family:'Jost',sans-serif;font-size:.78rem;color:var(--muted);line-height:1.75}
+/* WHY */
+.why-sec{padding:100px 5%;background:var(--dark)}
+.why-header{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:end;margin-bottom:60px}
+.why-lead{font-family:'Jost',sans-serif;font-size:.88rem;color:rgba(255,255,255,.45);line-height:1.85;font-weight:300}
+.why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid rgba(200,151,42,.14)}
+.why-card{padding:36px 30px;border-right:1px solid rgba(200,151,42,.1);position:relative;overflow:hidden;transition:background .35s}
+.why-card:last-child{border-right:none}
+.why-card:hover{background:rgba(200,151,42,.04)}
+.why-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .4s cubic-bezier(.16,1,.3,1)}
+.why-card:hover::before{transform:scaleX(1)}
+.why-icon{width:48px;height:48px;border:1px solid rgba(200,151,42,.3);background:rgba(200,151,42,.08);display:flex;align-items:center;justify-content:center;margin-bottom:20px}
+.why-icon svg{width:22px;height:22px;stroke:var(--gold-2);fill:none;stroke-width:1.6}
+.why-stat{font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:300;background:var(--grad-gold);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;margin-bottom:6px}
+.why-title{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:500;color:var(--white);margin-bottom:10px}
+.why-desc{font-family:'Jost',sans-serif;font-size:.76rem;color:var(--muted);line-height:1.72}
+.why-testi{margin-top:48px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.wt-card{padding:28px 26px;border:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.02);position:relative}
+.wt-card::before{content:'"';font-family:'Cormorant Garamond',serif;font-size:6rem;line-height:.7;color:rgba(200,151,42,.08);position:absolute;top:12px;left:16px;pointer-events:none}
+.wt-stars{display:flex;gap:3px;margin-bottom:14px}
+.wt-stars span{color:var(--gold);font-size:.75rem}
+.wt-text{font-family:'Cormorant Garamond',serif;font-size:.97rem;font-style:italic;color:rgba(255,255,255,.68);line-height:1.7;margin-bottom:18px}
+.wt-auth{display:flex;align-items:center;gap:12px;padding-top:14px;border-top:1px solid rgba(255,255,255,.06)}
+.wt-av{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-2));display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-weight:600;color:var(--dark);font-size:.8rem;flex-shrink:0}
+.wt-name{font-family:'Jost',sans-serif;font-size:.8rem;font-weight:600;color:var(--white);margin-bottom:2px}
+.wt-role{font-family:'Jost',sans-serif;font-size:.62rem;letter-spacing:.1em;color:var(--gold);text-transform:uppercase}
+/* COST */
+.cost-sec{padding:100px 5%;background:var(--dark-2)}
+.cost-intro{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:end;margin-bottom:60px}
+.cost-note{font-family:'Jost',sans-serif;font-size:.8rem;color:rgba(255,255,255,.3);line-height:1.8;padding:16px 20px;border-left:2px solid rgba(200,151,42,.3);background:rgba(200,151,42,.03);margin-top:20px}
+.cost-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:3px}
+.cost-card{position:relative;overflow:hidden;display:flex;flex-direction:column}
+.cost-card-inner{flex:1;padding:44px 36px;border:1px solid rgba(255,255,255,.07);transition:border-color .3s;display:flex;flex-direction:column}
+.cost-card:hover .cost-card-inner{border-color:rgba(200,151,42,.3)}
+.cost-tier-badge{display:inline-flex;align-items:center;gap:8px;font-family:'Jost',sans-serif;font-size:.58rem;letter-spacing:.32em;text-transform:uppercase;font-weight:600;margin-bottom:22px}
+.cost-tier-badge .cb-dot{width:8px;height:8px;border-radius:50%}
+.cc-basic .cost-card-inner{background:var(--dark-3)}
+.cc-basic .cost-tier-badge{color:rgba(255,255,255,.55)}
+.cc-basic .cb-dot{background:rgba(255,255,255,.4)}
+.cc-premium{position:relative}
+.cc-premium .cost-card-inner{background:linear-gradient(160deg,rgba(200,151,42,.12) 0%,rgba(200,151,42,.04) 100%);border-color:rgba(200,151,42,.35)!important}
+.cc-premium-badge{position:absolute;top:0;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--dark);font-family:'Jost',sans-serif;font-size:.52rem;letter-spacing:.22em;text-transform:uppercase;font-weight:700;padding:5px 18px;z-index:2;white-space:nowrap}
+.cc-premium .cost-tier-badge{color:var(--gold-2)}
+.cc-premium .cb-dot{background:var(--gold)}
+.cc-luxury .cost-card-inner{background:var(--dark-3)}
+.cc-luxury .cost-tier-badge{color:rgba(255,215,120,.8)}
+.cc-luxury .cb-dot{background:linear-gradient(135deg,#f5d87a,#c8972a)}
+.cost-tier-name{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:600;color:var(--white);margin-bottom:6px}
+.cost-tagline{font-family:'Jost',sans-serif;font-size:.78rem;color:var(--muted);margin-bottom:28px;line-height:1.6}
+.cost-price-wrap{margin-bottom:28px;padding-bottom:24px;border-bottom:1px solid rgba(255,255,255,.07)}
+.cost-price-label{font-family:'Jost',sans-serif;font-size:.58rem;letter-spacing:.28em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.cost-price{font-family:'Cormorant Garamond',serif;font-size:2.6rem;font-weight:400;line-height:1;margin-bottom:6px}
+.cc-basic .cost-price{color:rgba(255,255,255,.75)}
+.cc-premium .cost-price{background:var(--grad-gold);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.cc-luxury .cost-price{color:rgba(255,215,120,.9)}
+.cost-price-unit{font-family:'Jost',sans-serif;font-size:.72rem;color:var(--muted)}
+.cost-includes{display:flex;flex-direction:column;gap:10px;margin-bottom:28px;flex:1}
+.ci-row{display:flex;align-items:flex-start;gap:11px}
+.ci-check{width:18px;height:18px;flex-shrink:0;border:1px solid;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.cc-basic .ci-check{border-color:rgba(255,255,255,.2)}
+.cc-basic .ci-check svg{stroke:rgba(255,255,255,.45)}
+.cc-premium .ci-check{border-color:rgba(200,151,42,.5);background:rgba(200,151,42,.1)}
+.cc-premium .ci-check svg{stroke:var(--gold)}
+.cc-luxury .ci-check{border-color:rgba(255,215,120,.4);background:rgba(255,215,120,.06)}
+.cc-luxury .ci-check svg{stroke:rgba(255,215,120,.8)}
+.ci-check svg{width:10px;height:10px;fill:none;stroke-width:2.5}
+.ci-text{font-family:'Jost',sans-serif;font-size:.78rem;color:rgba(255,255,255,.55);line-height:1.55}
+.cost-timeline-note{display:flex;align-items:center;gap:8px;padding:14px 16px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);margin-bottom:22px}
+.cost-timeline-note svg{width:15px;height:15px;stroke:var(--gold);fill:none;stroke-width:1.8;flex-shrink:0}
+.cost-timeline-note span{font-family:'Jost',sans-serif;font-size:.73rem;color:var(--muted)}
+.cost-timeline-note strong{color:rgba(255,255,255,.65);font-weight:600}
+.cost-btn{display:block;text-align:center;padding:13px 20px;font-family:'Jost',sans-serif;font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;font-weight:600;cursor:pointer;border:none;transition:all .2s;text-decoration:none}
+.cc-basic .cost-btn{background:rgba(255,255,255,.07);color:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.12)}
+.cc-basic .cost-btn:hover{background:rgba(255,255,255,.12);color:var(--white)}
+.cc-premium .cost-btn{background:var(--gold);color:var(--dark)}
+.cc-premium .cost-btn:hover{background:var(--gold-2)}
+.cc-luxury .cost-btn{background:transparent;color:rgba(255,215,120,.8);border:1px solid rgba(255,215,120,.3)}
+.cc-luxury .cost-btn:hover{background:rgba(255,215,120,.08);border-color:rgba(255,215,120,.6)}
+.cost-disclaimer{margin-top:28px;padding:18px 22px;border:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.02);display:flex;gap:14px;align-items:flex-start}
+.cost-disclaimer svg{width:18px;height:18px;stroke:var(--gold);fill:none;stroke-width:1.5;flex-shrink:0;margin-top:1px}
+.cost-disclaimer p{font-family:'Jost',sans-serif;font-size:.75rem;color:var(--muted);line-height:1.7}
+/* SHOWCASE */
+.showcase-sec{padding:100px 5%;background:var(--dark-3)}
+.showcase-list{display:flex;flex-direction:column;gap:80px;margin-top:8px}
+.showcase-item{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.showcase-item.reverse{direction:rtl}
+.showcase-item.reverse>*{direction:ltr}
+.ba-wrap{position:relative;aspect-ratio:4/3;overflow:hidden;cursor:ew-resize;user-select:none;-webkit-user-select:none}
+.ba-after,.ba-before{position:absolute;inset:0}
+.ba-after img,.ba-before img{width:100%;height:100%;object-fit:cover;display:block}
+.ba-before{clip-path:inset(0 50% 0 0)}
+.ba-handle{position:absolute;top:0;bottom:0;left:50%;width:3px;background:var(--gold);cursor:ew-resize;z-index:10;transform:translateX(-50%);transition:none}
+.ba-handle::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:36px;height:36px;border-radius:50%;background:var(--gold);border:3px solid var(--white);box-shadow:0 4px 16px rgba(0,0,0,.4)}
+.ba-arrows{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:11;display:flex;gap:4px;pointer-events:none}
+.ba-arrows svg{width:12px;height:12px;stroke:var(--dark);fill:none;stroke-width:2.5}
+.ba-labels{position:absolute;bottom:14px;left:0;right:0;display:flex;justify-content:space-between;padding:0 14px;pointer-events:none;z-index:5}
+.ba-lbl{font-family:'Jost',sans-serif;font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;font-weight:600;padding:4px 10px;backdrop-filter:blur(8px)}
+.ba-lbl.before{background:rgba(0,0,0,.6);color:rgba(255,255,255,.7)}
+.ba-lbl.after{background:rgba(200,151,42,.88);color:var(--dark)}
+.sc-tag{font-family:'Jost',sans-serif;font-size:.58rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:14px}
+.sc-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:500;color:var(--white);line-height:1.2;margin-bottom:16px}
+.sc-title em{font-style:italic;color:var(--gold-light)}
+.sc-desc{font-family:'Jost',sans-serif;font-size:.83rem;color:rgba(255,255,255,.45);line-height:1.82;margin-bottom:28px;font-weight:300}
+.sc-facts{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:28px}
+.sc-fact{padding:14px 16px;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.02)}
+.sf-label{font-family:'Jost',sans-serif;font-size:.54rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.sf-value{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:500;color:var(--white)}
+.sf-value.gold{background:var(--grad-gold);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.sc-timeline-box{padding:16px 18px;border:1px solid rgba(200,151,42,.2);background:rgba(200,151,42,.04)}
+.stl-label{font-family:'Jost',sans-serif;font-size:.55rem;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:14px}
+.stl-track{display:flex;gap:0;position:relative}
+.stl-track::before{content:'';position:absolute;top:11px;left:0;right:0;height:1px;background:rgba(200,151,42,.2)}
+.stl-phase{display:flex;flex-direction:column;align-items:center;flex:1;position:relative;z-index:2}
+.stl-dot{width:10px;height:10px;border-radius:50%;border:2px solid;margin-bottom:8px;flex-shrink:0}
+.stl-dot.done{background:var(--gold);border-color:var(--gold)}
+.stl-dot.active{background:transparent;border-color:var(--gold);animation:dotPulse 2s ease-in-out infinite}
+.stl-dot.todo{background:transparent;border-color:rgba(255,255,255,.2)}
+@keyframes dotPulse{0%,100%{box-shadow:0 0 0 0 rgba(200,151,42,.4)}50%{box-shadow:0 0 0 5px rgba(200,151,42,0)}}
+.stl-name{font-family:'Jost',sans-serif;font-size:.5rem;text-align:center;color:rgba(255,255,255,.38);line-height:1.4}
+.stl-name.active-lbl{color:var(--gold-2);font-weight:600}
+/* HOW WE BUILD */
+.hwb-sec{padding:90px 5%;background:var(--dark-2)}
+.hwb-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start}
+.hwb-steps{display:flex;flex-direction:column;gap:0}
+.hwb-step{display:flex;gap:20px;padding:24px 0;border-bottom:1px solid rgba(255,255,255,.05);transition:all .3s}
+.hwb-step:last-child{border-bottom:none}
+.hwb-step:hover{background:rgba(200,151,42,.03);padding-left:8px}
+.hwb-step-num{width:36px;height:36px;border:1px solid rgba(200,151,42,.3);display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;color:var(--gold);flex-shrink:0;font-family:'Jost',sans-serif;margin-top:2px;transition:all .3s}
+.hwb-step:hover .hwb-step-num{background:rgba(200,151,42,.12);border-color:var(--gold)}
+.hwb-step-title{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:500;color:var(--white);margin-bottom:6px}
+.hwb-step-desc{font-family:'Jost',sans-serif;font-size:.78rem;color:var(--muted);line-height:1.7}
+.hwb-right{position:sticky;top:100px}
+.hwb-certs{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:24px}
+.cert-card{padding:18px 16px;border:1px solid rgba(200,151,42,.2);text-align:center;background:rgba(200,151,42,.03);transition:border-color .3s,transform .3s}
+.cert-card:hover{border-color:rgba(200,151,42,.5);transform:translateY(-3px)}
+.cert-name{font-family:'Cormorant Garamond',serif;font-size:.85rem;font-weight:600;color:var(--gold-2);margin-bottom:3px}
+.cert-desc{font-family:'Jost',sans-serif;font-size:.62rem;color:var(--muted);line-height:1.5}
+/* PROJECTS */
+.con-projects{padding:90px 5%;background:var(--dark)}
+.con-tabs{display:flex;gap:0;margin-bottom:40px;border-bottom:1px solid rgba(255,255,255,.08);overflow-x:auto;-webkit-overflow-scrolling:touch}
+.con-tab{padding:13px 30px;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.4);cursor:pointer;border-bottom:2px solid transparent;border-top:none;border-left:none;border-right:none;transition:all .2s;background:none;font-family:'Jost',sans-serif;font-weight:500;white-space:nowrap}
+.con-tab.active{color:var(--gold);border-bottom-color:var(--gold)}
+.con-panel{display:none;grid-template-columns:repeat(3,1fr);gap:22px}
+.con-panel.active{display:grid}
+.con-proj-card{background:var(--dark-4);border:1px solid rgba(255,255,255,.06);overflow:hidden;transition:border-color .3s,transform .4s cubic-bezier(.16,1,.3,1)}
+.con-proj-card:hover{border-color:rgba(200,151,42,.3);transform:translateY(-4px)}
+.con-proj-img{aspect-ratio:16/10;overflow:hidden}
+.con-proj-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.16,1,.3,1);display:block}
+.con-proj-card:hover .con-proj-img img{transform:scale(1.06)}
+.con-proj-body{padding:22px 20px}
+.cpb-status{display:inline-flex;align-items:center;gap:7px;font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;font-weight:600;margin-bottom:10px;font-family:'Jost',sans-serif}
+.status-ongoing{color:#4ade80}.status-ongoing::before{content:'';width:7px;height:7px;background:#4ade80;border-radius:50%;display:inline-block;animation:pulse 2s infinite}
+.status-done{color:var(--gold-2)}.status-done::before{content:'';display:inline-block;width:8px;height:8px;background:var(--gold-2);clip-path:polygon(0 50%,40% 100%,100% 0,40% 60%,0 50%);margin-right:4px}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.5)}}
+.cpb-title{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:500;color:var(--white);margin-bottom:7px}
+.cpb-loc{font-family:'Jost',sans-serif;font-size:.74rem;color:var(--muted);margin-bottom:14px}
+.prog-wrap{margin-top:2px}
+.prog-label{display:flex;justify-content:space-between;font-size:.62rem;color:var(--muted);margin-bottom:6px;font-family:'Jost',sans-serif}
+.prog-bar{height:3px;background:rgba(255,255,255,.08)}
+.prog-fill{height:100%;background:linear-gradient(to right,var(--gold),var(--gold-2));transition:width 1.5s cubic-bezier(.16,1,.3,1)}
+/* SAFETY */
+.safety-sec{padding:90px 5%;background:var(--dark-3)}
+.safety-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+.safety-score{text-align:center;padding:48px 40px;border:1px solid rgba(200,151,42,.2);background:rgba(200,151,42,.03)}
+.ss-num{font-family:'Cormorant Garamond',serif;font-size:5rem;font-weight:400;background:var(--grad-gold);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
+.ss-label{font-family:'Jost',sans-serif;font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+.safety-points{display:flex;flex-direction:column;gap:16px;margin-top:24px}
+.safety-pt{display:flex;align-items:flex-start;gap:14px;padding:16px 18px;border:1px solid rgba(255,255,255,.06);transition:border-color .3s}
+.safety-pt:hover{border-color:rgba(200,151,42,.2)}
+.sp-icon-box{width:36px;height:36px;border:1px solid rgba(200,151,42,.25);background:rgba(200,151,42,.06);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.sp-icon-box svg{width:16px;height:16px;stroke:var(--gold);fill:none;stroke-width:1.8}
+.sp-title{font-family:'Cormorant Garamond',serif;font-size:.95rem;font-weight:500;color:var(--gold-2);margin-bottom:4px}
+.sp-desc{font-family:'Jost',sans-serif;font-size:.75rem;color:var(--muted);line-height:1.65}
+/* CTA */
+.cta-banner{background:var(--dark);padding:80px 5%;display:flex;align-items:center;justify-content:space-between;gap:36px;flex-wrap:wrap;border-top:1px solid rgba(200,151,42,.15);position:relative;overflow:hidden}
+.cta-banner::before{content:'CONSTRUCT';position:absolute;right:2%;top:50%;transform:translateY(-50%);font-family:'Cormorant Garamond',serif;font-size:8rem;font-weight:700;color:rgba(255,255,255,.02);pointer-events:none;white-space:nowrap}
+.cta-label{font-family:'Jost',sans-serif;font-size:.6rem;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;font-weight:600}
+.cta-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.7rem,3.5vw,2.6rem);font-weight:300;color:var(--white);line-height:1.2}
+.cta-title em{font-style:italic;color:var(--gold-2)}
+.cta-btns{display:flex;gap:14px;flex-wrap:wrap;flex-shrink:0}
+
+.cost-sec {
+  padding: 90px 5%;
+  background: var(--dark-3);
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  text-align: center;  
+}
+
+
+.cost-box {
+  border: 1px solid rgba(200,151,42,.2);
+  background: rgba(200,151,42,.03);
+  padding: 40px;
+  max-width: 700px;
+  width: 100%;
+  margin: 0 auto; 
+}
+
+.cost-input label {
+  font-size: .7rem;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 8px;
+}
+
+.cost-input input {
+  width: 100%;
+  padding: 14px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,.1);
+  color: #fff;
+  margin-bottom: 30px;
+}
+
+.plans {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.plan {
+  flex: 1;
+  padding: 16px;
+  border: 1px solid rgba(255,255,255,.1);
+  cursor: pointer;
+  text-align: center;
+  transition: .3s;
+}
+
+.plan.active,
+.plan:hover {
+  border-color: var(--gold);
+  background: rgba(200,151,42,.08);
+}
+
+.plan h4 {
+  font-size: .85rem;
+  color: var(--white);
+}
+
+.plan p {
+  font-size: .7rem;
+  color: var(--gold);
+}
+
+.cost-result {
+  text-align: center;
+}
+
+.cost-result span {
+  font-size: .7rem;
+  color: var(--muted);
+}
+
+.cost-result h3 {
+  font-family: 'Cormorant Garamond';
+  font-size: 2.2rem;
+  color: var(--gold);
+}
+/* RESPONSIVE */
+@media(max-width:1100px){
+  .why-grid{grid-template-columns:1fr 1fr;border:1px solid rgba(200,151,42,.14)}
+  .why-card{border:1px solid rgba(200,151,42,.1)}
+}
+@media(max-width:900px){
+  .caps-grid{grid-template-columns:1fr 1fr}
+  .cost-cards{grid-template-columns:1fr}
+  .why-testi{grid-template-columns:1fr}
+  .showcase-item,.showcase-item.reverse{grid-template-columns:1fr;direction:ltr}
+  .hwb-grid{grid-template-columns:1fr}.hwb-right{position:static}.hwb-certs{grid-template-columns:repeat(3,1fr)}
+  .safety-grid{grid-template-columns:1fr}
+  .con-panel.active{grid-template-columns:1fr 1fr}
+  .cost-intro,.why-header{grid-template-columns:1fr}
+  .sc-facts{grid-template-columns:1fr 1fr}
+}
+@media(max-width:768px){
+  .con-caps,.con-projects,.hwb-sec,.safety-sec,.cost-sec,.showcase-sec,.why-sec{padding:60px 4%}
+  .caps-grid{grid-template-columns:1fr}
+  .why-grid{grid-template-columns:1fr}
+  .why-card{border:1px solid rgba(200,151,42,.1)!important}
+  .hwb-certs{grid-template-columns:1fr 1fr}
+  .con-panel.active{grid-template-columns:1fr}
+  .cta-banner{flex-direction:column;gap:24px;padding:48px 4%;text-align:center}
+  .cta-btns{flex-direction:column;width:100%}
+  .btn-primary,.btn-outline{width:100%;text-align:center}
+  .sc-facts{grid-template-columns:1fr}
+  .ba-wrap{aspect-ratio:3/2}
+}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a class="nav-logo" href="index.html"><img src="logo.png" alt="Aurenza Group"/><div class="nav-logo-text"><div class="nav-logo-name">Aurenza Group</div><div class="nav-logo-sub">Bengaluru · Est. 2025</div></div></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="interiors.html">Interiors</a></li>
+    <li><a href="construction.html" class="active">Construction</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="careers.html">Careers</a></li>
+    <li><a href="index.html#contact-footer" class="nav-cta">Enquire</a></li>
+  </ul>
+  <div class="hamburger" id="ham" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+</nav>
+<div class="mob-menu" id="mob-menu">
+  <a href="index.html">Home</a><a href="interiors.html">Interiors</a>
+  <a href="construction.html" class="active">Construction</a>
+  <a href="projects.html">Projects</a><a href="careers.html">Careers</a>
+  <a href="index.html#contact-footer" class="mob-cta-btn" onclick="toggleMenu()">Enquire Now</a>
+</div>
+
+<div class="page-hero" style="background:linear-gradient(rgba(8,7,5,.72),rgba(8,7,5,.88)),url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1600&q=85&auto=format&fit=crop') center/cover no-repeat">
+  <div class="page-hero-content">
+    <div class="page-badge">Construction</div>
+    <h1 class="section-title" style="color:var(--white)">Built with <em>Precision</em>, Engineered to Last</h1>
+    <div class="ph-divider"><span></span><i></i><span></span></div>
+  </div>
+</div>
+
+<div class="stats-strip">
+  <div class="stat-item reveal"><div class="stat-num">100%</div><div class="stat-lbl">On-Time Commitment</div></div>
+  <div class="stat-item reveal" style="transition-delay:.1s"><div class="stat-num">IS</div><div class="stat-lbl">Code Compliant</div></div>
+  <div class="stat-item reveal" style="transition-delay:.2s"><div class="stat-num">RERA</div><div class="stat-lbl">Registered</div></div>
+  <div class="stat-item reveal" style="transition-delay:.3s"><div class="stat-num">0</div><div class="stat-lbl">Safety Compromises</div></div>
+</div>
+
+<!-- CAPABILITIES -->
+<section class="con-caps">
+  <div class="reveal" style="margin-bottom:48px">
+    <div class="gold-tag">What We Build</div>
+    <h2 class="section-title" style="color:var(--white)">Our <em>Capabilities</em></h2>
+    <p class="section-sub" style="color:rgba(255,255,255,.4)">IS-code compliant, RERA-registered construction — delivered on time, every time.</p>
+  </div>
+  <div class="caps-grid">
+    <div class="cap-card reveal"><div class="cap-num">01</div><div class="cap-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#E4BC5A" stroke-width="1.5" width="22" height="22"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M9 22V12h6v10M3 9h18M3 15h18"/></svg></div><div class="cap-title">High-Rise Residential</div><div class="cap-desc">Premium apartments, villas, and gated communities built to the highest structural standards with full RERA compliance.</div></div>
+    <div class="cap-card reveal" style="transition-delay:.08s"><div class="cap-num">02</div><div class="cap-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#E4BC5A" stroke-width="1.5" width="22" height="22"><rect x="2" y="7" width="20" height="14" rx="1"/><path d="M16 21V7a2 2 0 0 0-2-2H10a2 2 0 0 0-2 2v14M2 11h20M2 15h20"/></svg></div><div class="cap-title">Grade-A Commercial</div><div class="cap-desc">Office parks, retail spaces, and mixed-use developments engineered for long-term performance and tenant satisfaction.</div></div>
+    <div class="cap-card reveal" style="transition-delay:.16s"><div class="cap-num">03</div><div class="cap-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#E4BC5A" stroke-width="1.5" width="22" height="22"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div class="cap-title">Integrated Townships</div><div class="cap-desc">Master-planned communities with complete infrastructure — roads, utilities, amenities, and lush green spaces.</div></div>
+    <div class="cap-card reveal"><div class="cap-num">04</div><div class="cap-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#E4BC5A" stroke-width="1.5" width="22" height="22"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><div class="cap-title">MEP &amp; Smart Systems</div><div class="cap-desc">Mechanical, electrical, and plumbing systems integrated with smart building technology for efficiency and comfort.</div></div>
+    <div class="cap-card reveal" style="transition-delay:.08s"><div class="cap-num">05</div><div class="cap-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#E4BC5A" stroke-width="1.5" width="22" height="22"><path d="M12 22V12M12 12C12 7 17 3 21 3c0 4-3 9-9 9zM12 12C12 7 7 3 3 3c0 4 3 9 9 9z"/></svg></div><div class="cap-title">Green Building</div><div class="cap-desc">IGBC/LEED-aligned sustainable construction with solar integration, rainwater harvesting, and passive cooling.</div></div>
+    <div class="cap-card reveal" style="transition-delay:.16s"><div class="cap-num">06</div><div class="cap-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#E4BC5A" stroke-width="1.5" width="22" height="22"><path d="M2 20h20M4 20V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v14"/><path d="M9 20v-5h6v5M9 9h1m4 0h1M9 13h1m4 0h1"/></svg></div><div class="cap-title">Hospitality &amp; Retail</div><div class="cap-desc">Boutique hotels, branded residences, and flagship retail spaces built to international hospitality standards.</div></div>
+  </div>
+</section>
+
+<!-- WHY CHOOSE AURENZA -->
+<section class="why-sec">
+  <div class="why-header">
+    <div class="reveal-left">
+      <div class="gold-tag">Our Promise</div>
+      <h2 class="section-title" style="color:var(--white)">Why Choose <em>Aurenza Group</em></h2>
+    </div>
+    <div class="reveal-right">
+      <p class="why-lead">We know you have choices. Here is what sets us apart — not just claims, but commitments we put in writing and stand behind on every single project.</p>
+    </div>
+  </div>
+  <div class="why-grid">
+    <div class="why-card reveal">
+      <div class="why-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+      <div class="why-stat">100%</div>
+      <div class="why-title">On-Time Delivery</div>
+      <div class="why-desc">Every project comes with a contractually committed handover date. We have never missed a possession deadline. If we do, you receive a penalty — no questions asked.</div>
+    </div>
+    <div class="why-card reveal" style="transition-delay:.1s">
+      <div class="why-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+      <div class="why-stat">0</div>
+      <div class="why-title">Hidden Costs</div>
+      <div class="why-desc">Our quotes are fixed-price and all-inclusive. We provide itemised BOQ breakdowns before you sign. What you see in the quote is exactly what you pay.</div>
+    </div>
+    <div class="why-card reveal" style="transition-delay:.2s">
+      <div class="why-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+      <div class="why-stat">48hr</div>
+      <div class="why-title">Progress Reports</div>
+      <div class="why-desc">You receive a detailed site report with photos every 48 hours. Access your project's live dashboard anytime — full visibility at every stage of your build.</div>
+    </div>
+    <div class="why-card reveal" style="transition-delay:.3s">
+      <div class="why-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <div class="why-stat">10yr</div>
+      <div class="why-title">Structural Warranty</div>
+      <div class="why-desc">Every Aurenza-built structure carries a 10-year structural warranty and 1-year defect liability period. We stand behind our work long after the keys are handed over.</div>
+    </div>
+  </div>
+  
+</section>
+
+<!-- COST OF CONSTRUCTION -->
+<section class="cost-sec">
+  <div class="cost-intro">
+    <div class="reveal-left">
+      <div class="gold-tag">Transparent Pricing</div>
+      <h2 class="section-title" style="color:var(--white)">Cost of <em>Construction</em></h2>
+      <p class="section-sub" style="color:rgba(255,255,255,.42)">We believe you deserve to know what things cost before you even call us. These are honest, market-calibrated ranges for Bengaluru construction — no bait-and-switch, no surprises.</p>
+    </div>
+    <div class="reveal-right">
+      <div class="cost-note"><strong style="color:rgba(255,255,255,.6)">How to read these prices:</strong> Rates are per sq ft of built-up area (BUA) for residential construction in Bengaluru, valid 2025. Actual costs depend on soil conditions, floor count, material grades, and site accessibility. We provide a free detailed BOQ after a site assessment.</div>
+    </div>
+  </div>
+  <div class="cost-cards">
+    <div class="cost-card cc-basic reveal">
+      <div class="cost-card-inner">
+        <div class="cost-tier-badge"><div class="cb-dot"></div>Standard Specification</div>
+        <div class="cost-tier-name">Standard</div>
+        <div class="cost-tagline">Solid, code-compliant construction using good-quality materials. Ideal for budget-conscious builds where durability matters most.</div>
+        <div class="cost-price-wrap">
+          <div class="cost-price-label">Construction Cost Per Sq Ft</div>
+          <div class="cost-price">&#8377;1,600 &ndash; &#8377;2,200</div>
+          <div class="cost-price-unit">Inclusive of structure, brickwork, plaster, basic flooring &amp; fittings</div>
+        </div>
+        <div class="cost-includes">
+          <div class="ci-row"><div class="ci-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="ci-text">IS 456 compliant RCC structure</div></div>
+          <div class="ci-row"><div class="ci-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="ci-text">Brick masonry &amp; cement plastering</div></div>
+          <div class="ci-row"><div class="ci-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="ci-text">Standard vitrified tile flooring</div></div>
+          <div class="ci-row"><div class="ci-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="ci-text">Basic bathroom fittings (Parryware / Cera)</div></div>
+          <div class="ci-row"><div class="ci-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="ci-text">Standard electrical wiring (Anchor / Finolex)</div></div>
+          <div class="ci-row"><div class="ci-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="ci-text">BBMP-approved plan &amp; RERA registration</div></div>
+        </div>
+        <div class="cost-timeline-note">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span>Typical timeline: <strong>12 &ndash; 18 months</strong> for G+2 residential</span>
+        </div>
+        <a href="index.html#contact-footer" class="cost-btn">Get a Quote &#8594;</a>
+      </div>
+    </div>
+    <div class="cost-card cc-premium reveal" style="transition-delay:.12s">
+      <div class="cc-premium-badge">Most Popular</div>
+      <div class="cost-card-inner">
+        <div class="cost-tier-badge"><div class="cb-dot"></div>Premium Specification</div>
+        <div class="cost-tier-name">Premium</div>
+        <div class="cost-tagline">The most popular choice for Bengaluru homeowners — premium materials, better finishes, and smart-home ready infrastructure throughout.</div>
+        <div class="cost-price-wrap">
+          <div class="cost-price-label">Construction Cost Per Sq Ft</div>
+          <div class="cost-price">&#8377;2,200 &ndash; &#8377;3,200</div>
+          <div class="cost-price-unit">Inclusive of structure, premium finishes, branded fittings &amp; MEP</div>
+        </div>
+        <div class="cost-includes">
+          <div class="ci-row"><div class="ci-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="ci-text">Everything in Standard, plus:</div></div>
+          <div class="ci-row"><div class="ci-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="ci-text">Italian marble / premium granite flooring</div></div>
+          <div class="ci-row"><div class="ci-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="ci-text">Branded bathroom fittings (Kohler / Jaquar)</div></div>
+          <div class="ci-row"><div class="ci-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="ci-text">uPVC windows with double-glazed glass</div></div>
+          <div class="ci-row"><div class="ci-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="ci-text">Modular kitchen (Hafele / Hettich hardware)</div></div>
+          <div class="ci-row"><div class="ci-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="ci-text">Smart home wiring &amp; Lutron lighting prep</div></div>
+          <div class="ci-row"><div class="ci-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="ci-text">Rainwater harvesting &amp; solar panel provision</div></div>
+        </div>
+        <div class="cost-timeline-note">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span>Typical timeline: <strong>15 &ndash; 22 months</strong> for G+3 residential</span>
+        </div>
+        <a href="index.html#contact-footer" class="cost-btn">Get a Quote &#8594;</a>
+      </div>
+    </div>
+    <div class="cost-card cc-luxury reveal" style="transition-delay:.24s">
+      <div class="cost-card-inner">
+        <div class="cost-tier-badge"><div class="cb-dot"></div>Luxury Specification</div>
+        <div class="cost-tier-name">Luxury</div>
+        <div class="cost-tagline">Bespoke, no-compromise construction with imported materials, full smart-home automation, and world-class finishes throughout.</div>
+        <div class="cost-price-wrap">
+          <div class="cost-price-label">Construction Cost Per Sq Ft</div>
+          <div class="cost-price">&#8377;3,200 &ndash; &#8377;5,500+</div>
+          <div class="cost-price-unit">Bespoke quote — varies with imported materials &amp; custom scope</div>
+        </div>
+        <div class="cost-includes">
+          <div class="ci-row"><div class="ci-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="ci-text">Everything in Premium, plus:</div></div>
+          <div class="ci-row"><div class="ci-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="ci-text">Imported stone (Statuario / Calacatta marble)</div></div>
+          <div class="ci-row"><div class="ci-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="ci-text">Full Crestron / KNX smart home automation</div></div>
+          <div class="ci-row"><div class="ci-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="ci-text">Concealed AC ducting (VRV system)</div></div>
+          <div class="ci-row"><div class="ci-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="ci-text">Home theatre &amp; AV infrastructure</div></div>
+          <div class="ci-row"><div class="ci-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="ci-text">Landscaping, pool &amp; outdoor living areas</div></div>
+          <div class="ci-row"><div class="ci-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div class="ci-text">Dedicated project manager + architect</div></div>
+        </div>
+        <div class="cost-timeline-note">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span>Typical timeline: <strong>18 &ndash; 30 months</strong> depending on scope</span>
+        </div>
+        <a href="index.html#contact-footer" class="cost-btn">Request Bespoke Quote &#8594;</a>
+      </div>
+    </div>
+  </div>
+  <div class="cost-disclaimer reveal">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    <p><strong style="color:rgba(255,255,255,.55)">Important:</strong> All prices are indicative ranges for Bengaluru, valid 2025. Final cost depends on floor count, soil type, design complexity, and material selection. Government charges (BBMP, BWSSB, BESCOM approvals, GST) are additional. We provide a free, no-obligation detailed BOQ after a site visit — no hidden surprises, ever.</p>
+  </div>
+</section>
+
+<!-- COST CALCULATOR -->
+<section class="cost-sec">
+  <div class="reveal" style="margin-bottom:40px">
+    <div class="gold-tag">Estimate Cost</div>
+    <h2 class="section-title" style="color:var(--white)">
+      Construction Cost <em>Calculator</em>
+    </h2>
+    <p class="section-sub">Get an instant estimate based on your built-up area.</p>
+  </div>
+
+  <div class="cost-box">
+    <div class="cost-input">
+      <label>Enter Area (Sq Ft)</label>
+      <input type="number" id="sqft" placeholder="e.g. 1500">
+    </div>
+
+    <div class="plans">
+      <div class="plan" data-price="1900">
+        <h4>Valuable Package</h4>
+        <p>₹1900 / sqft</p>
+      </div>
+      <div class="plan active" data-price="2300">
+        <h4>Smart Choice</h4>
+        <p>₹2300 / sqft</p>
+      </div>
+      <div class="plan" data-price="2500">
+        <h4>Premium Choice</h4>
+        <p>₹2500 / sqft</p>
+      </div>
+    </div>
+
+    <div class="cost-result">
+      <span>Estimated Cost</span>
+      <h3 id="totalCost">₹0</h3>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECT SHOWCASES — BEFORE / AFTER -->
+<section class="showcase-sec">
+  <div class="reveal" style="margin-bottom:56px">
+    <div class="gold-tag">Real Projects · Real Numbers</div>
+    <h2 class="section-title" style="color:var(--white)">Project <em>Showcases</em></h2>
+    <p class="section-sub" style="color:rgba(255,255,255,.4)">Actual Aurenza projects — real timelines, real budgets, and documented progress. Drag the slider to compare before and after. No stock photography, no inflated claims.</p>
+  </div>
+  <div class="showcase-list">
+
+    <!-- SHOWCASE 1 -->
+    <div class="showcase-item reveal">
+      <div class="ba-wrap" id="ba1">
+        <div class="ba-after"><img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900&q=85&auto=format&fit=crop" alt="Heritage Heights After" loading="lazy"/></div>
+        <div class="ba-before" id="ba1-before"><img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=900&q=85&auto=format&fit=crop" alt="Heritage Heights Before" loading="lazy"/></div>
+        <div class="ba-handle" id="ba1-handle"><div class="ba-arrows"><svg viewBox="0 0 24 24"><polyline points="15,18 9,12 15,6"/></svg><svg viewBox="0 0 24 24"><polyline points="9,18 15,12 9,6"/></svg></div></div>
+        <div class="ba-labels"><span class="ba-lbl before">Before</span><span class="ba-lbl after">After</span></div>
+      </div>
+      <div class="showcase-text">
+        <div class="sc-tag">Completed &middot; 2024</div>
+        <h3 class="sc-title">Heritage Heights,<br><em>Indiranagar</em></h3>
+        <p class="sc-desc">A premium G+22 residential tower on a 1.2-acre plot. Site was previously a disused commercial plot requiring full demolition and soil remediation. Delivered 18 days ahead of schedule with zero cost overruns.</p>
+        <div class="sc-facts">
+          <div class="sc-fact"><div class="sf-label">Built-Up Area</div><div class="sf-value">2,18,000 sq ft</div></div>
+          <div class="sc-fact"><div class="sf-label">Units</div><div class="sf-value">120 Apartments</div></div>
+          <div class="sc-fact"><div class="sf-label">Project Budget</div><div class="sf-value gold">&#8377; 47.2 Cr</div></div>
+          <div class="sc-fact"><div class="sf-label">Final Cost</div><div class="sf-value gold">&#8377; 47.2 Cr &#10003;</div></div>
+          <div class="sc-fact"><div class="sf-label">Planned Duration</div><div class="sf-value">22 Months</div></div>
+          <div class="sc-fact"><div class="sf-label">Actual Duration</div><div class="sf-value" style="color:#4ade80">21.4 Months &#8595;</div></div>
+        </div>
+        <div class="sc-timeline-box">
+          <div class="stl-label">Construction Timeline</div>
+          <div class="stl-track">
+            <div class="stl-phase"><div class="stl-dot done"></div><div class="stl-name">Foundation<br>M1&ndash;5</div></div>
+            <div class="stl-phase"><div class="stl-dot done"></div><div class="stl-name">Structure<br>M5&ndash;13</div></div>
+            <div class="stl-phase"><div class="stl-dot done"></div><div class="stl-name">Fa&ccedil;ade<br>M13&ndash;17</div></div>
+            <div class="stl-phase"><div class="stl-dot done"></div><div class="stl-name">MEP<br>M15&ndash;20</div></div>
+            <div class="stl-phase"><div class="stl-dot done"></div><div class="stl-name">Handover<br>M21.4 &#10003;</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SHOWCASE 2 -->
+    <div class="showcase-item reverse reveal">
+      <div class="ba-wrap" id="ba2">
+        <div class="ba-after"><img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=900&q=85&auto=format&fit=crop" alt="Tech Enclave After" loading="lazy"/></div>
+        <div class="ba-before" id="ba2-before"><img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=900&q=85&auto=format&fit=crop" alt="Tech Enclave Before" loading="lazy"/></div>
+        <div class="ba-handle" id="ba2-handle"><div class="ba-arrows"><svg viewBox="0 0 24 24"><polyline points="15,18 9,12 15,6"/></svg><svg viewBox="0 0 24 24"><polyline points="9,18 15,12 9,6"/></svg></div></div>
+        <div class="ba-labels"><span class="ba-lbl before">Before</span><span class="ba-lbl after">After</span></div>
+      </div>
+      <div class="showcase-text">
+        <div class="sc-tag">Completed &middot; 2024</div>
+        <h3 class="sc-title">Tech Enclave,<br><em>Electronic City</em></h3>
+        <p class="sc-desc">Grade-A IT office park developed for a Bengaluru tech conglomerate. 2.4 lakh sq ft across G+18 on a 2.8-acre parcel. IGBC Gold certified. Delivered on a fixed-price contract with full MEP commissioning.</p>
+        <div class="sc-facts">
+          <div class="sc-fact"><div class="sf-label">Built-Up Area</div><div class="sf-value">2,40,000 sq ft</div></div>
+          <div class="sc-fact"><div class="sf-label">Leasable Area</div><div class="sf-value">1,86,000 sq ft</div></div>
+          <div class="sc-fact"><div class="sf-label">Project Budget</div><div class="sf-value gold">&#8377; 82.5 Cr</div></div>
+          <div class="sc-fact"><div class="sf-label">Final Cost</div><div class="sf-value gold">&#8377; 81.8 Cr &#10003;</div></div>
+          <div class="sc-fact"><div class="sf-label">Planned Duration</div><div class="sf-value">28 Months</div></div>
+          <div class="sc-fact"><div class="sf-label">Actual Duration</div><div class="sf-value" style="color:#4ade80">27.2 Months &#8595;</div></div>
+        </div>
+        <div class="sc-timeline-box">
+          <div class="stl-label">Construction Timeline</div>
+          <div class="stl-track">
+            <div class="stl-phase"><div class="stl-dot done"></div><div class="stl-name">Piling<br>M1&ndash;4</div></div>
+            <div class="stl-phase"><div class="stl-dot done"></div><div class="stl-name">Structure<br>M4&ndash;16</div></div>
+            <div class="stl-phase"><div class="stl-dot done"></div><div class="stl-name">Fa&ccedil;ade<br>M15&ndash;21</div></div>
+            <div class="stl-phase"><div class="stl-dot done"></div><div class="stl-name">MEP<br>M18&ndash;26</div></div>
+            <div class="stl-phase"><div class="stl-dot done"></div><div class="stl-name">Handover<br>M27.2 &#10003;</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SHOWCASE 3 — ONGOING -->
+    <div class="showcase-item reveal">
+      <div class="ba-wrap" id="ba3">
+        <div class="ba-after"><img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=900&q=85&auto=format&fit=crop" alt="Celestia Progress" loading="lazy"/></div>
+        <div class="ba-before" id="ba3-before"><img src="https://images.unsplash.com/photo-1582407947304-fd86f28f7c57?w=900&q=85&auto=format&fit=crop" alt="Celestia Site" loading="lazy"/></div>
+        <div class="ba-handle" id="ba3-handle"><div class="ba-arrows"><svg viewBox="0 0 24 24"><polyline points="15,18 9,12 15,6"/></svg><svg viewBox="0 0 24 24"><polyline points="9,18 15,12 9,6"/></svg></div></div>
+        <div class="ba-labels"><span class="ba-lbl before">Site &ndash; Jan 2024</span><span class="ba-lbl after">Now &ndash; 72%</span></div>
+      </div>
+      <div class="showcase-text">
+        <div class="sc-tag">Ongoing &middot; 72% Complete</div>
+        <h3 class="sc-title">Celestia Tower,<br><em>Whitefield</em></h3>
+        <p class="sc-desc">Our flagship high-rise — 240 premium 2, 3 &amp; 4 BHK apartments across 28 floors in Bengaluru's most sought-after tech corridor. Currently tracking ahead of schedule and on budget.</p>
+        <div class="sc-facts">
+          <div class="sc-fact"><div class="sf-label">Built-Up Area</div><div class="sf-value">4,80,000 sq ft</div></div>
+          <div class="sc-fact"><div class="sf-label">Units</div><div class="sf-value">240 Apartments</div></div>
+          <div class="sc-fact"><div class="sf-label">Project Budget</div><div class="sf-value gold">&#8377; 128 Cr</div></div>
+          <div class="sc-fact"><div class="sf-label">Cost to Date</div><div class="sf-value gold">&#8377; 89.4 Cr &#10003;</div></div>
+          <div class="sc-fact"><div class="sf-label">Start Date</div><div class="sf-value">January 2024</div></div>
+          <div class="sc-fact"><div class="sf-label">Possession</div><div class="sf-value" style="color:#4ade80">Q3 2026 (On Track)</div></div>
+        </div>
+        <div class="sc-timeline-box">
+          <div class="stl-label">Live Construction Timeline</div>
+          <div class="stl-track">
+            <div class="stl-phase"><div class="stl-dot done"></div><div class="stl-name">Foundation<br>&#10003; Done</div></div>
+            <div class="stl-phase"><div class="stl-dot done"></div><div class="stl-name">Structure<br>&#10003; Fl. 22</div></div>
+            <div class="stl-phase"><div class="stl-dot active"></div><div class="stl-name active-lbl">Fa&ccedil;ade<br>Active</div></div>
+            <div class="stl-phase"><div class="stl-dot todo"></div><div class="stl-name">MEP<br>Q4 2025</div></div>
+            <div class="stl-phase"><div class="stl-dot todo"></div><div class="stl-name">Handover<br>Q3 2026</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- HOW WE BUILD -->
+<section class="hwb-sec">
+  <div class="hwb-grid">
+    <div>
+      <div class="reveal" style="margin-bottom:36px">
+        <div class="gold-tag">Our Process</div>
+        <h2 class="section-title" style="color:var(--white)">How We <em>Build</em></h2>
+      </div>
+      <div class="hwb-steps">
+        <div class="hwb-step reveal"><div class="hwb-step-num">01</div><div><div class="hwb-step-title">Design Validation &amp; BIM</div><div class="hwb-step-desc">Complete structural drawings, BIM modelling, and soil investigation before breaking ground.</div></div></div>
+        <div class="hwb-step reveal" style="transition-delay:.06s"><div class="hwb-step-num">02</div><div><div class="hwb-step-title">Foundation &amp; Substructure</div><div class="hwb-step-desc">Piling, raft foundation, and waterproofing executed to IS 456 standards with third-party testing.</div></div></div>
+        <div class="hwb-step reveal" style="transition-delay:.12s"><div class="hwb-step-num">03</div><div><div class="hwb-step-title">Superstructure</div><div class="hwb-step-desc">RCC frame construction with column, beam, slab casting — cube testing at every pour.</div></div></div>
+        <div class="hwb-step reveal" style="transition-delay:.18s"><div class="hwb-step-num">04</div><div><div class="hwb-step-title">Fa&ccedil;ade &amp; Envelope</div><div class="hwb-step-desc">Brick masonry, external plastering, weatherproof façade finishes, and window glazing.</div></div></div>
+        <div class="hwb-step reveal" style="transition-delay:.24s"><div class="hwb-step-num">05</div><div><div class="hwb-step-title">MEP Installation</div><div class="hwb-step-desc">Electrical, plumbing, fire fighting, HVAC, and smart home infrastructure installations.</div></div></div>
+        <div class="hwb-step reveal" style="transition-delay:.3s"><div class="hwb-step-num">06</div><div><div class="hwb-step-title">Snag-Free Handover</div><div class="hwb-step-desc">100-point quality checklist, third-party audit, RERA OC, and formal handover to client.</div></div></div>
+      </div>
+    </div>
+    <div class="hwb-right reveal-right">
+      <div style="padding:28px 24px;border:1px solid rgba(200,151,42,.2);background:rgba(200,151,42,.03);margin-bottom:24px">
+        <div class="gold-tag" style="margin-bottom:10px">Compliance</div>
+        <p style="font-family:'Jost',sans-serif;font-size:.82rem;color:rgba(255,255,255,.5);line-height:1.8">Every project is designed and executed in full compliance with IS Code, NBC 2016, local BBMP regulations, and RERA guidelines. No shortcuts — ever.</p>
+      </div>
+      <div class="hwb-certs">
+        <div class="cert-card"><div class="cert-name">ISO 9001</div><div class="cert-desc">Quality Management</div></div>
+        <div class="cert-card"><div class="cert-name">ISO 45001</div><div class="cert-desc">Safety Management</div></div>
+        <div class="cert-card"><div class="cert-name">IGBC</div><div class="cert-desc">Green Building</div></div>
+        <div class="cert-card"><div class="cert-name">RERA</div><div class="cert-desc">Registered</div></div>
+        <div class="cert-card"><div class="cert-name">NABL</div><div class="cert-desc">Lab Testing</div></div>
+        <div class="cert-card"><div class="cert-name">BBMP</div><div class="cert-desc">Approved Plans</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS TABBED -->
+<section class="con-projects">
+  <div class="reveal" style="margin-bottom:36px">
+    <div class="gold-tag">Our Portfolio</div>
+    <h2 class="section-title" style="color:var(--white)">Construction <em>Projects</em></h2>
+  </div>
+  <div class="con-tabs">
+    <button class="con-tab active" onclick="switchTab('ongoing',this)">Ongoing Projects</button>
+    <button class="con-tab" onclick="switchTab('completed',this)">Completed Projects</button>
+  </div>
+  <div class="con-panel active" id="tab-ongoing">
+    <div class="con-proj-card reveal"><div class="con-proj-img"><img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=700&q=85&auto=format&fit=crop" alt="Celestia Tower" loading="lazy"/></div><div class="con-proj-body"><div class="cpb-status status-ongoing">Ongoing</div><div class="cpb-title">Celestia Tower</div><div class="cpb-loc">&#128205; Whitefield &middot; High-Rise Residential &middot; G+28</div><div class="prog-wrap"><div class="prog-label"><span>Progress</span><span>72%</span></div><div class="prog-bar"><div class="prog-fill" data-width="72%" style="width:0"></div></div></div></div></div>
+    <div class="con-proj-card reveal" style="transition-delay:.08s"><div class="con-proj-img"><img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=700&q=85&auto=format&fit=crop" alt="Business Hub" loading="lazy"/></div><div class="con-proj-body"><div class="cpb-status status-ongoing">Ongoing</div><div class="cpb-title">Aurenza Business Hub</div><div class="cpb-loc">&#128205; Koramangala &middot; Grade-A Commercial &middot; G+14</div><div class="prog-wrap"><div class="prog-label"><span>Progress</span><span>45%</span></div><div class="prog-bar"><div class="prog-fill" data-width="45%" style="width:0"></div></div></div></div></div>
+    <div class="con-proj-card reveal" style="transition-delay:.16s"><div class="con-proj-img"><img src="https://images.unsplash.com/photo-1582407947304-fd86f28f7c57?w=700&q=85&auto=format&fit=crop" alt="Green Acres" loading="lazy"/></div><div class="con-proj-body"><div class="cpb-status status-ongoing">Ongoing</div><div class="cpb-title">Green Acres Villas</div><div class="cpb-loc">&#128205; Sarjapur Road &middot; Township &middot; 180 Villas</div><div class="prog-wrap"><div class="prog-label"><span>Progress</span><span>28%</span></div><div class="prog-bar"><div class="prog-fill" data-width="28%" style="width:0"></div></div></div></div></div>
+  </div>
+  <div class="con-panel" id="tab-completed">
+    <div class="con-proj-card reveal"><div class="con-proj-img"><img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=700&q=85&auto=format&fit=crop" alt="Heritage Heights" loading="lazy"/></div><div class="con-proj-body"><div class="cpb-status status-done">Completed &middot; 2024</div><div class="cpb-title">Heritage Heights</div><div class="cpb-loc">&#128205; Indiranagar &middot; Premium Residential &middot; 120 Units</div></div></div>
+    <div class="con-proj-card reveal" style="transition-delay:.08s"><div class="con-proj-img"><img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=700&q=85&auto=format&fit=crop" alt="Tech Enclave" loading="lazy"/></div><div class="con-proj-body"><div class="cpb-status status-done">Completed &middot; 2024</div><div class="cpb-title">Tech Enclave</div><div class="cpb-loc">&#128205; Electronic City &middot; IT Office Park &middot; 2.4L sq ft</div></div></div>
+    <div class="con-proj-card reveal" style="transition-delay:.16s"><div class="con-proj-img"><img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=700&q=85&auto=format&fit=crop" alt="Namma Nagar" loading="lazy"/></div><div class="con-proj-body"><div class="cpb-status status-done">Completed &middot; 2025</div><div class="cpb-title">Namma Nagar Phase I</div><div class="cpb-loc">&#128205; Yelahanka &middot; Integrated Township &middot; 320 Plots</div></div></div>
+  </div>
+</section>
+
+<!-- SAFETY -->
+<section class="safety-sec">
+  <div class="safety-grid">
+    <div class="reveal-left">
+      <div class="gold-tag">Safety First</div>
+      <h2 class="section-title" style="color:var(--white)">Zero <em>Compromise</em> on Safety</h2>
+      <p class="section-sub" style="color:rgba(255,255,255,.4);margin-bottom:32px">Our safety management system protects every worker on every site — every single day.</p>
+      <div class="safety-points">
+        <div class="safety-pt"><div class="sp-icon-box"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div><div class="sp-title">PPE Mandatory for All</div><div class="sp-desc">Helmets, harnesses, and full safety gear required on all sites. No exceptions — ever.</div></div></div>
+        <div class="safety-pt"><div class="sp-icon-box"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div><div class="sp-title">Daily Safety Audits</div><div class="sp-desc">Site engineers conduct daily walkthroughs with digital checklists and photo records sent to clients.</div></div></div>
+        <div class="safety-pt"><div class="sp-icon-box"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><div><div class="sp-title">On-Site Medical Support</div><div class="sp-desc">First-aid stations and trained emergency response personnel on all active construction sites.</div></div></div>
+      </div>
+    </div>
+    <div class="reveal-right" style="text-align:center">
+      <div class="safety-score">
+        <div class="ss-num">99.8%</div>
+        <div class="ss-label">Safety Compliance Score</div>
+        <div style="font-family:'Jost',sans-serif;margin-top:20px;font-size:.75rem;color:var(--muted);line-height:1.8">Independently audited across all active construction sites. ISO 45001 certified safety management system.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-banner">
+  <div class="reveal-left">
+    <div class="cta-label">Start Building</div>
+    <div class="cta-title">Have a Project in <em>Mind?</em></div>
+  </div>
+  <div class="cta-btns reveal" style="transition-delay:.15s">
+    <a href="index.html#contact-footer" class="btn-primary">Request a Quote</a>
+    <a href="projects.html" class="btn-outline">View All Projects</a>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="ft-grid">
+    <div class="ft-brand"><div class="ft-logo-wrap"><img class="ft-logo-img" src="logo.png" alt="Aurenza Group"/><div class="ft-logo-text"><div class="ft-name">Aurenza Group</div><div class="ft-city">Bengaluru &middot; Est. 2025</div></div></div><p class="ft-desc">Premium real estate marketing, bespoke interiors, and precision construction.</p><div class="ft-socials"><a class="ft-soc" href="#">ig</a><a class="ft-soc" href="#">in</a><a class="ft-soc" href="#">yt</a><a class="ft-soc" href="#">fb</a></div></div>
+    <div class="ft-col"><h4>Company</h4><ul><li><a href="index.html">Home</a></li><li><a href="projects.html">Projects</a></li><li><a href="careers.html">Careers</a></li></ul></div>
+    <div class="ft-col"><h4>Services</h4><ul><li><a href="interiors.html">Interiors</a></li><li><a href="construction.html">Construction</a></li></ul></div>
+    <div class="ft-col"><h4>Contact</h4><ul><li><a href="tel:+919876543210">+91 98765 43210</a></li><li><a href="mailto:hello@aurenzagroup.in">hello@aurenzagroup.in</a></li><li><a>Indiranagar, Bengaluru</a></li></ul></div>
+  </div>
+  <div class="ft-bottom"><div class="ft-copy">&copy; 2025 Aurenza Group.</div><div class="ft-legal"><a href="#">Privacy</a><a href="#">Terms</a></div></div>
+</footer>
+
+<div class="sticky-icons">
+  <a class="si-item si-wa" href="https://wa.me/919876543210" target="_blank" rel="noopener"><div class="si-icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="#25D366" stroke-width="1.8"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div><span class="si-label">WhatsApp</span></a>
+  <a class="si-item si-ph" href="tel:+919876543210"><div class="si-icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="#4A90D9" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.99 12 19.79 19.79 0 0 1 1.93 3.4 2 2 0 0 1 3.9 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div><span class="si-label">Call Now</span></a>
+  <a class="si-item si-em" href="mailto:hello@aurenzagroup.in"><div class="si-icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="#E4BC5A" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div><span class="si-label">Email Us</span></a>
+  <a class="si-item si-ig" href="https://instagram.com/aurenzagroup" target="_blank" rel="noopener"><div class="si-icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></div><span class="si-label">Instagram</span></a>
+</div>
+
+<script src="shared.js"></script>
+<script>
+function switchTab(id,btn){
+  document.querySelectorAll('.con-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.con-panel').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  const panel=document.getElementById('tab-'+id);
+  if(panel){
+    panel.classList.add('active');
+    setTimeout(()=>{
+      panel.querySelectorAll('.prog-fill[data-width]').forEach(bar=>{
+        const w=bar.dataset.width;bar.style.width='0';
+        requestAnimationFrame(()=>requestAnimationFrame(()=>{bar.style.width=w;}));
+      });
+      panel.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el=>el.classList.add('in'));
+    },50);
+  }
+}
+function initSlider(wrapId,beforeId,handleId){
+  const wrap=document.getElementById(wrapId);
+  const before=document.getElementById(beforeId);
+  const handle=document.getElementById(handleId);
+  if(!wrap||!before||!handle)return;
+  let dragging=false;
+  function setPos(x){
+    const rect=wrap.getBoundingClientRect();
+    let pct=((x-rect.left)/rect.width)*100;
+    pct=Math.min(Math.max(pct,2),98);
+    before.style.clipPath='inset(0 '+(100-pct)+'% 0 0)';
+    handle.style.left=pct+'%';
+  }
+  wrap.addEventListener('mousedown',e=>{dragging=true;setPos(e.clientX);e.preventDefault();});
+  wrap.addEventListener('touchstart',e=>{dragging=true;setPos(e.touches[0].clientX);},{passive:true});
+  window.addEventListener('mousemove',e=>{if(dragging)setPos(e.clientX);});
+  window.addEventListener('touchmove',e=>{if(dragging)setPos(e.touches[0].clientX);},{passive:true});
+  window.addEventListener('mouseup',()=>{dragging=false;});
+  window.addEventListener('touchend',()=>{dragging=false;});
+}
+window.addEventListener('DOMContentLoaded',()=>{
+  initSlider('ba1','ba1-before','ba1-handle');
+  initSlider('ba2','ba2-before','ba2-handle');
+  initSlider('ba3','ba3-before','ba3-handle');
+  setTimeout(()=>{
+    document.querySelectorAll('.prog-fill[data-width]').forEach(bar=>{bar.style.width=bar.dataset.width;});
+  },600);
+});
+
+const plans = document.querySelectorAll('.plan');
+const sqftInput = document.getElementById('sqft');
+const total = document.getElementById('totalCost');
+
+let price = 2300;
+
+plans.forEach(p => {
+  p.addEventListener('click', () => {
+    plans.forEach(x => x.classList.remove('active'));
+    p.classList.add('active');
+    price = p.dataset.price;
+    calculate();
+  });
+});
+
+sqftInput.addEventListener('input', calculate);
+
+function calculate() {
+  const sqft = sqftInput.value;
+  if (!sqft) return total.innerText = "₹0";
+  total.innerText = "₹" + (sqft * price).toLocaleString();
+}
+
+</script>
+</body>
+</html>
